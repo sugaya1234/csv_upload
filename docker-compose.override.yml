@@ -1,0 +1,13 @@
+services:
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - "8081:8080"
+    networks:
+      - sail
+
+networks:
+  sail:
+    external: true
+    name: csv_uploader_sail
