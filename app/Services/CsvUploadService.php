@@ -67,6 +67,16 @@ class CsvUploadService
 
                 $results['total_count']++;
 
+                // 列数チェックを入れる
+                if (count($row) !== count($csvHeader)) {
+                    $results['error_count']++;
+                    $results['errors'][] = [
+                        'line' => $line + 1,
+                        'messages' => ['行の列数が不正']
+                    ];
+                    continue;
+                }
+
                 $data = [];
                 foreach ($csvHeader as $index => $colName) {
                     if ($colName === null) continue;
