@@ -22,6 +22,29 @@
                 アップロード
             </button>
         </form>
+
+        {{-- CSV処理結果 --}}
+        @isset($results)
+            <div class="mt-4">
+                <p>総行数: {{ $results['total_count'] }}</p>
+                <p>新規登録: {{ $results['new_count'] }}</p>
+                <p>更新: {{ $results['update_count'] }}</p>
+                <p>変更なし: {{ $results['unchanged_count'] }}</p>
+                <p>エラー件数: {{ $results['error_count'] }}</p>
+
+                @if (!empty($results['errors']))
+                    <div class="mt-2 text-red-600">
+                        <h2 class="font-bold">エラー詳細</h2>
+                        <ul class="list-disc ml-5">
+                            @foreach ($results['errors'] as $err)
+                                <li>行 {{ $err['line'] }}: {{ implode(', ', $err['messages']) }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
+            </div>
+        @endisset
+
     </div>
 </body>
 </html>
